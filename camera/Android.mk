@@ -20,12 +20,18 @@ LOCAL_SHARED_LIBRARIES += \
     libhardware \
     libcamera_client \
     libui \
+    libstlport \
     $(BOARD_CAMERA_LIBRARIES)
 
+include external/stlport/libstlport.mk
 
 ifneq ($(BOARD_CAMERA_MOTOROLA_COMPAT),)
 LOCAL_CFLAGS += \
     -DMOTOROLA_CAMERA
+endif
+
+ifeq ($(BOARD_USE_FROYO_LIBCAMERA), true)
+LOCAL_CFLAGS += -DBOARD_USE_FROYO_LIBCAMERA
 endif
 
 include $(BUILD_SHARED_LIBRARY)
